@@ -6,13 +6,14 @@
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" type="text/css" href="style.css">
-   <script src="myscript.js"></script>
+   <!-- <script src="myscript.js"></script> -->
    <div class="keylogo">
-     <div id=keyboard>
-       <img src="C:\Users\steph\Javascript30\projects\drumkit\keytext.png"/>
-     </div> <br>
+     <div id="keyboard">
+       
+     </div>
+      <br>
      <div id="slogo">
-       <img src="C:\Users\steph\Javascript30\projects\drumkit\stephlogo.png" type="img"/>
+       
      </div>
    </div>
 
@@ -75,7 +76,29 @@
   <audio data-key="74" src="sounds/snare.wav"></audio>
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
+<script>
+  
+function playSound(keyDownFunc){
+const audio = document.querySelector(`audio[data-key="${keyDownFunc.keyCode}"]`);
+const key = document.querySelector(`.key[data-key="${keyDownFunc.keyCode}"]`);
+if(!audio) alert("Key not registered"); // stops the function from running
 
+audio.currentTime = 0;//rewinds the key to start
+audio.play();
+key.classList.add('playing');
+};
+
+function removeTransition(keyDownFunc){
+if(keyDownFunc.propertyName !== 'transform') return; //skip if not a transform
+this.classList.remove('playing');
+
+}
+
+const keys = document.querySelectorAll('.key');
+keys.forEach(key=>key.addEventListener('transitionend',removeTransition));
+
+window.addEventListener('keydown',playSound);
+</script>
 
  </body>
  </html>
