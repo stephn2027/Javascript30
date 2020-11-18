@@ -1,7 +1,8 @@
 html {
   font-size: 10px;
   background: url("https://i.imgur.com/Q8lRynB.jpg");
-  background-size:cover;
+  background-size:auto;
+  background-repeat: no-repeat;
   text-align: center;
 }
 body,html {
@@ -16,7 +17,7 @@ body,html {
 	border-radius: 50%; 
 	border:20px solid white;
 	margin:50px auto;
-
+	margin-top: 200px;
 	position: relative;
 	padding: 2rem;
 	box-shadow: 0 0 0 4px rgba(0,0,0,0.1),

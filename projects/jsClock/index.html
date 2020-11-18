@@ -30,7 +30,12 @@
 			const now = new Date();
 			const seconds = now.getSeconds();
 			const secondsDegrees = ((seconds/60)*360)+90;
-			secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+			const secondRotation = secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+			if(secondsDegrees === 162){
+				hand.propertyName.remove('transistion');
+			}
+			
+
 
 			const mins = now.getMinutes();
 			const minutesDegrees = ((mins/60)*360)+90;
