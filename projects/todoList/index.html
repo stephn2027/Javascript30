@@ -13,6 +13,13 @@
     <h1 class="app-title">todos</h1>
     <ul class="todo-list js-todo-list"></ul>
 
+    <div class="empty-state">
+    	<svg class="checklist-icon"><use href="#checklist-icon"></use></svg>
+      	<h2 class="empty-state__title">Add your first todo</h2>
+      	<p class="empty-state__description">What do you want to get done today?</p>
+
+    </div>
+
     <form class="js-form">
       <input autofocus type="text" aria-label="Enter a new todo item" placeholder="E.g. Build a web app" class="js-todo-input">
     </form>
@@ -30,13 +37,19 @@
 <script>
 	let todoItems = [];
 
+
 function renderTodo(todo) {
+
+localStorage.setItem('todoItemsRef', JSON.stringify(todoItems));
+
   const list = document.querySelector('.js-todo-list');
   const item = document.querySelector(`[data-key='${todo.id}']`);
 
   if(todo.deleted){
   	 // remove the item from the DOM
   	item.remove();
+
+  	if(todoItems.length === 0)list.innerHTML = '';
   	return
   }
 
@@ -121,6 +134,16 @@ list.addEventListener('click', event => {
   if (event.target.classList.contains('js-delete-todo')) {
   	const itemKey = event.target.parentElement.dataset.key;
   	deleteTodo(itemKey);
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const ref = localStorage.getItem('todoItemsRef');
+  if (ref) {
+    todoItems = JSON.parse(ref);
+    todoItems.forEach(t => {
+      renderTodo(t);
+    });
   }
 });
 
