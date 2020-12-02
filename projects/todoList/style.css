@@ -123,8 +123,8 @@ input[type="text"] {
 .checklist-icon {
   margin-bottom: 20px;
 }
-.empty-state_title, .empty-state_description{
-  margin-bottom: 50px;
+.empty-state__title, .empty-state__description{
+  margin-bottom: 20px;
 }
 .todo-list:empty{
   display: none;
@@ -135,4 +135,11 @@ input[type="text"] {
 p.empty-state_description{
   margin-bottom: 20px;
 
+}
+.todo-list:empty {
+  display: none;
+}
+
+.todo-list:empty + .empty-state {
+  display: flex;
 }
