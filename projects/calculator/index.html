@@ -1,1 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head style="font-stretch: semi-condensed;grid-auto-rows: blue">
+	<title>JS Calculator</title>
+	<meta charset="utf-8">
+	<meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
 
+	<div class="calculator">
+		<h3>My first calculator app</h3>
+		<input type="text" class="calculator-screen" value="0" disabled/>
+
+		<div class="calculator-keys">
+			<button type="button" class="operator" value= "+" >+</button>
+			<button type="button" class="operator" value="-">-</button>
+			<button type="button" class="operator" value= "*" >&times;</button>
+			<button type="button" class="operator" value="/">&divide;</button>
+
+			<button type="button" class="numbers" value="7">7</button>
+			<button type="button" class="numbers" value="8">8</button>
+			<button type="button" class="numbers" value="9">9</button>
+			<button type="button" class="numbers" value="4">4</button>
+			<button type="button" class="numbers" value="5">5</button>
+			<button type="button" class="numbers" value="6">6</button>
+			<button type="button" class="numbers" value="1">1</button>
+			<button type="button" class="numbers" value="2">2</button>
+			<button type="button" class="numbers" value="3">3</button>
+			<button type="button" class="numbers" value="0">0</button>
+			<button type="button" class="decimal" value=".">.</button>
+			<button type="button" class="all-clear" value="all-clear">AC</button>
+			<button type="button" class="equal-sign operator" value="=">=</button>
+
+			
+		</div>
+	</div>
+<script>
+	const calculator = {
+		displayValue:'0',
+		firstOperand: null,
+		waitingForSecondOperand: false,
+		operator: null,
+		
+	};
+
+	function inputDigit(digit){
+		const {displayValue, waitingForSecondOperand} = calculator;
+		
+		if (waitingForSecondOperand===true) {
+			calculator.displayValue = digit;
+			calculator.waitingForSecondOperand = false;
+		}else {
+			calculator.displayValue = displayValue ==='0' ? digit:displayValue + digit;
+		}
+
+	}
+
+	function inputDecimal(dot){
+		if(calculator.waitingForSecondOperand === true){
+			calculator.displayValue = '0.'
+			calculator.waitingForSecondOperand = false;
+			return
+		}
+
+		if(!calculator.displayValue.includes(dot)){
+			calculator.displayValue += dot;
+		}
+	}
+
+	function handleOperator(nextOperator){
+		//destructuring the properties of the calculator object
+		const {firstOperand, displayValue, operator} = calculator;
+		//converting the displayValue which is a string data into a float number using parseFloat function;
+		const inputValue = parseFloat(displayValue);
+
+		if( operator && calculator.waitingForSecondOperand){
+			calculator.operator = nextOperator;
+			
+			return;
+		}
+
+		if(firstOperand === null && !isNaN(inputValue)){
+			calculator.firstOperand = inputValue;
+		} else if (operator) {
+
+    	const result = calculate(firstOperand, inputValue, operator);
+
+		 calculator.displayValue = `${parseFloat(result.toFixed(5))}`;
+   		 calculator.firstOperand = result;
+  		}
+		calculator.waitingForSecondOperand = true;
+		calculator.operator = nextOperator;
+
+		console.log(calculator);
+	}
+
+	function calculate(firstOperand, secondOperand, operator){
+		if (operator === '+'){
+			return firstOperand + secondOperand;
+			
+		}else if(operator ==='-'){
+			const difference = firstOperand - secondOperand;
+			return difference;
+		}else if(operator ==='*'){
+			const product = firstOperand * secondOperand;
+			return product;
+		}else if(operator ==='/'){
+			const qoutient = firstOperand / secondOperand;
+			return qoutient;
+		}
+		else{
+			return secondOperand;
+		}
+	}
+	
+	function resetCalculator(){
+		calculator.displayValue = '0';
+		calculator.firstOperand = null;
+		calculator.waitingForSecondOperand = null;
+		calculator.operator = null;
+	}
+
+	function screenDisplay(){
+
+		const display = document.querySelector('.calculator-screen');
+		display.value = calculator.displayValue;
+	}
+	screenDisplay();
+
+	const keys = document.querySelector('.calculator-keys');
+	keys.addEventListener('click', (event) =>{
+
+		//same as const target = event.target;
+		const {target} = event;
+		const {value} = target;
+
+		switch (value) {
+			case '+':
+			case '-':
+			case '/':
+			case '*':
+			case '=':
+			handleOperator(value);
+			break;
+			case '.':
+			inputDecimal(value);
+			break;
+			case 'all-clear':
+			resetCalculator();
+			break;
+			default:
+			//check if the key is an integer
+			if(Number.isInteger(parseFloat(value))){
+				inputDigit(value);
+			}
+			
+		}
+		screenDisplay();
+	});
+</script>
+
+</body>
+</html>
