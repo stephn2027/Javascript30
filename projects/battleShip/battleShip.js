@@ -75,7 +75,7 @@ var model= {
  			}
  		}
  		console.log("Ships array: ");
-		console.log(this.ships);
+		console.log(this.ships[0].locations,this.ships[1].locations,'\n', this.ships[2].locations);
  	},
 
  	generateShip: function (){
@@ -137,7 +137,7 @@ var controller = {
 			var hit = model.fire(location);
 			if (hit && model.shipsSunk === model.numShips) {
 				view.displayMessage(`You sank all my battleShips, in ${this.guesses} guesses`);
-				setTimeout(reloadButton, 3000);
+				setTimeout(reloadButton, 4000);
 					function reloadButton(){
 						if(confirm("Would you like to play again?")){
 						window.location.reload();

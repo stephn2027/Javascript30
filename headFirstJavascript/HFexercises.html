@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<title>Head First Exercises</title>
+</head>
+<style>
+body, button { margin: 10px; }
+div { padding: 10px; }
+</style>
+<script>
+	var count=0;
+	window.onload = ()=>{
+	var button = document.getElementById('clickMe');
+	var message = document.getElementById('message');
+		button.onclick = ()=>{
+		count++;
+		message.innerHTML="You clicked me "+count+" times!";
+		
+		};
+	};
+</script>
+<body>
+	<button id="clickMe">Click Me!</button>
+	<div id="message"></div>
+</body>
+</html>

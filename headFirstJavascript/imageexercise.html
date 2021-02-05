@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewpoint" content="width = device-width, initial-scale=1.0">
+  <title> Image Guess </title>
+  <style>
+  	html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+	body{
+		margin: 20px;
+	}
+	img{
+
+		margin: 20px;
+	}
+
+  </style>
+  <script>
+
+  	
+  	 window.onload = init;
+  	 function init(){
+  	var images = document.getElementsByTagName("img");
+  	// for (var i = 0; i < images.length; i++) {
+  		
+  	
+  	// 	images[i].onclick=showAnswer;
+  	// 	console.log('image[i]');
+  	// };
+  	Object.keys(images).forEach( function(index) {
+  		images[index].onclick=showAnswer;
+  		images[index].onmouseleave=blurAgain;
+  		images[index].onmouseover=showAnswer;
+  		
+  	});
+  	
+  	
+   }
+  function showAnswer(eventObj){
+  	var image = eventObj.target;
+  	var name = image.id;
+  	name+=".jpg";
+  	image.src = name;
+  	var timeout;
+  	
+  		
+  }
+  function blurAgain(eventObj){
+  		var image = eventObj.target;
+  		var name = image.id;
+  		name+="blur.jpg";
+  		image.src = name;
+  		}
+function resize(){
+  var element = document.getElementById("display");
+  element.innerHTML += " that tickles";
+}
+
+  
+</script>
+</head>
+<body>
+	<img id="zero" src="zeroblur.jpg">
+	<img id="one" src="oneblur.jpg">
+	<img id="two" src="twoblur.jpg">
+	<img id="three" src="threeblur.jpg">
+	<img id="four" src="fourblur.jpg">
+	<img id="five" src="fiveblur.jpg">
+
+  <p id="display">
+Whatever you do, don't resize this window! I'm warning you!
+</p>
+<script>
+window.onresize = resize;
+
+
+</script>
+</body>
+</html>
