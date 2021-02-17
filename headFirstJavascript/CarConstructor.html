@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name='viewpoint' width=device-width initial-scale=1>
+    <title>HEAD FIRST EXCERCISES</title>
+
+</head>
+
+<body>
+    <script>
+        function Car(params) {
+            this.make = params.make;
+            this.model = params.model;
+            this.year = params.year;
+            this.color = params.color;
+            this.passengers = params.passengers;
+            this.convertible = params.convertible;
+            this.milage = params.milage;
+            this.started = false;
+            this.start = () => { this.started = true; };
+            this.stop = () => { this.stated = false };
+            this.drive = () => { return this.started ? console.log(`${this.make} ${this.model} goes zoom zoom!`) : console.log("start the engine first") };
+
+        };
+        var chevyParam = {
+            make: "Chevy",
+            model: "Bel Air",
+            year: 1957,
+            color: "red",
+            passengers: 2,
+            convertible: false,
+            milage: 1021
+        }
+        var chevy = new Car(chevyParam);
+        var cadiParam = { make: "GM", model: "Cadillac", year: 1955, color: "tan", passengers: 5, convertible: false, milage: 12892 };
+        var cadi = new Car(cadiParam);
+
+
+        var cars = [chevy, cadi];
+
+        for (var i = 0; i < cars.length; i++) {
+            cars[i].start();
+            cars[i].drive();
+            cars[i].drive();
+            cars[i].stop();
+        };
+
+        function Dog(params) {
+            this.name = params.name;
+            this.breed = params.breed;
+            this.weight = params.weight;
+            this.bark = function () {
+                if (this.weight > 25) {
+                    alert(this.name + " says Woof!");
+                } else {
+                    alert(this.name + " says Yip!");
+                }
+            };
+        }
+        var limoParams = {make: "Webville Motors", model: "limo", year: 1983, color: "black", passengers: 12, convertible: true, mileage: 21120 };
+        var limo = new Car(limoParams);
+        var limoDogParam ={name:"Rhapsody In Blue",breed: "Poodle",weight: 40}
+        var limoDog = new Dog(limoDogParam);
+
+        console.log(limo.make + " " + limo.model + " is a " + typeof limo); 
+        console.log(limoDog.name + " is a " + typeof limoDog);
+
+
+    </script>
+
+
+
+</body>
+
+</html>
