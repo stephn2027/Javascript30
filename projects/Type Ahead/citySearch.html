@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>City Search 🔍 </title>
+  <link rel="stylesheet" href="citySearch.css">
+</head>
+<form class="search-form">
+  <input type="text" class="search" placeholder="City or Province">
+  <ul class="suggestions">
+    <li>Search for a City</li>
+    <li>or Province</li>
+  </ul>
+
+</form>
+
+<body>
+
+
+  <script>
+    const cityList = 'https://raw.githubusercontent.com/stephn2027/Javascript30/main/ph.json';
+    const cities = [];
+    fetch(cityList).then(blob => blob.json()).then(data => cities.push(...data));
+
+    function findMatches(wordToMatch, cities) {
+      return cities.filter(place => {
+        const regex = new RegExp(wordToMatch, 'gi');
+        return place.city.match(regex) || place.admin_name.match(regex);
+      })
+    };
+
+    function displayMatches() {
+      const wordMatch = findMatches(this.value, cities);
+      const formatted = new Intl.NumberFormat('en-US');
+      const html = wordMatch.map(place => {
+        const regex = new RegExp(this.value,'gi');
+        const cityName = place.city.replace(regex,`<span class="hl">${this.value}</span>`);
+        const province = place.admin_name.replace(regex,`<span class="hl">${this.value}</span>`);
+        
+
+        return `
+        <li> 
+          <span class="name">${cityName}, ${province}</span>
+          <span class="population">${formatted.format(place.population)}</span>
+        </li> 
+          `;
+      }).join('');
+      suggestions.innerHTML =html;
+    }
+    const searchInput = document.querySelector('.search');
+    const suggestions = document.querySelector('.suggestions');
+
+    searchInput.addEventListener('change', displayMatches);
+    searchInput.addEventListener('keyup', displayMatches);
+    
+
+
+
+  </script>
+</body>
+
+</html>
