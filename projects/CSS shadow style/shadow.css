@@ -1,0 +1,57 @@
+html{
+    box-sizing:border-box;
+    height: 100%;
+    background: linear-gradient(rgb(26, 61, 213),
+    rgba(109,57,216,0.9)) no-repeat;
+    background-size: cover;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    text-align-last: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    transition: background-color .1s;
+    
+    
+    
+}
+*,*:before,*::after{
+box-sizing: inherit;
+}
+h1{
+    margin-top: 15vh;
+    
+    display: inline-block;
+    font-size: 6em;
+    opacity: 100%;
+    cursor: pointer;
+    transform:rotate(-10deg);
+    position: relative;
+    text-shadow:10px 10px rgba(0,0,0,0.5);
+    text-decoration: none;
+    
+    
+    
+
+    
+}
+span{
+    color: rgb(246, 223, 9);
+    text-decoration: none;
+}
+span.Script{
+    color: rgb(246, 246, 250);
+}
+
+.container{
+    width: 600px;
+    height: 300px;
+    padding: 20px;
+    outline: none;
+    box-shadow: none;
+    position: relative;
+    
+    
+  }
+
+  
+  

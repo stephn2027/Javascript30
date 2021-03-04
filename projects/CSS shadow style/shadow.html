@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="shadow.css">
+    <title>Shadow manipulation</title>
+</head>
+<body>
+    <div class="container">
+        <h1>
+        <a>
+        <span>Java</span>
+        <span class="Script">Script</span>
+        </a>
+        </h1>
+    </div>
+    <script>
+        const container = document.querySelector('.container');
+        const text = container.querySelector('h1');
+        const shadowDistance = 35;
+
+        function shadow(e){
+            const {offsetWidth:width,offsetHeight:height}=container;
+            let {offsetX:x,offsetY:y}=e;
+            
+
+            if(this!==e.target){
+                x = x + e.target.offsetLeft;
+                y = y + e.target.offsetTop;
+            }
+            const xShadow = Math.round((x/width*shadowDistance)-(shadowDistance/2));
+            const yShadow = Math.round((y/height*shadowDistance)-(shadowDistance/2));
+
+            
+            text.style.textShadow =`${xShadow}px ${yShadow}px 0 rgba(0,0,0,0.6)`;
+            
+        }
+
+        container.addEventListener('mousemove',shadow);
+
+    </script>
+
+</body>
+</html>
