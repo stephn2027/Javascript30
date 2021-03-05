@@ -1,0 +1,120 @@
+html {
+  box-sizing: border-box;
+  background: url('wallpaperflare.com_wallpaper.jpg') no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+  text-decoration-color: lightgoldenrodyellow;
+  color: darkgoldenrod;
+  
+}
+svg {
+  display: flexbox;
+  box-sizing: border-box;
+  position: relative;
+  padding: 20px;
+  margin: 20px;
+  width: 200px;
+  fill-opacity: 50%;
+  fill: azure;
+  background: rgba(243, 241, 241, 0.5);
+  border-radius: 15px;
+  
+  
+}
+
+.pizza {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s ease-in-out infinite forwards;
+  background-color: azure;
+
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+.wrapper{
+  padding: 20px;
+  background: rgba(255, 253, 253, 0.94);
+  box-shadow:0 0 0 10px rgba(0 0 0 / 10%);
+  max-width: 350px;
+}
+h2{
+  text-align: center;
+  margin: 0;
+  font-weight: 200;
+}
+.plates{
+  list-style: none;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+.plates li{
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  font-weight: 100;
+  display: flex;
+}
+.plates label{
+ flex: 1;
+ cursor:pointer;
+}
+.plates input{
+  display: none;
+}
+.plates input + label:before{
+  content:"🌫";
+  margin-right: 10px;
+}
+.plates input:checked + label:before{
+  content:"🍕";
+}
+.add-items{
+  margin-top: 20px;
+}
+.add-items input{
+  padding: 10px;
+  outline: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  position: relative;
+  
+}
+.add-items button{
+ margin-top: 10px;
+ padding: 10px;
+ border-color: rgb(240, 239, 237,0.4);
+ box-shadow: rgb(218, 160, 114,0.2);
+ border-radius: 5px;
+}
+.add-items button:hover{
+  background: rgb(184, 134, 11,0.4);
+}
+.add-items input.check-all{
+  padding: 10px;
+}
+.add-items label{
+  font-weight: 100;
+  position:relative;
+}
+#uncheck-all{
+  position: relative;
+  margin-left: 175px;
+
+}
+
+
+
