@@ -32,6 +32,7 @@
 
     function displayMatches() {
       const wordMatch = findMatches(this.value, cities);
+      console.log(this.value)
       const formatted = new Intl.NumberFormat('en-US');
       const html = wordMatch.map(place => {
         const regex = new RegExp(this.value,'gi');
