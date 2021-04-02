@@ -1,0 +1,121 @@
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+ font-family:
+ -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans,
+  Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+ line-height: 1.4;
+}
+.container{
+  width: 400px;
+  height: max-content;
+  left:50%;
+  top: 40%;
+  transform: translate(-50%,-50%);
+  border-radius: 1rem;
+  box-shadow: 0px 1px 4px 1px rgba(0,0,0,0.5);
+  margin-top: 5rem;
+  padding-bottom: 1vh;
+  position: absolute;
+  
+}
+.calculator-screen{
+  width: 100%;
+  background: darkgoldenrod;
+  font-size: 5rem;
+  height: 8rem;
+  text-align: right;
+  border-top-right-radius: inherit;
+  border-top-left-radius: inherit;
+  padding-right: 1rem;
+}
+.calculator-buttons{
+  padding: 1rem .5rem 1rem .5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  
+}
+button{
+  height: 6rem;
+  overflow-y: hidden;
+  background-image: linear-gradient(to bottom,transparent,transparent 50%,rgba(0,0,0,.04));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.05), inset 0 1px 0 0 rgba(255,255,255,.45), inset 0 -1px 0 0 rgba(255,255,255,.15), 0 1px 0 0 rgba(255,255,255,.15);
+  text-shadow: 0 1px rgba(255,255,255,.4);
+  background: transparent;
+  box-shadow: 0.1px 0.2px 1px 0.4px rgb(172, 141, 7);
+  border-radius: 3px;
+  padding:1px;
+  border:none;
+
+}
+button:hover{
+  background-color: rgba(126, 108, 10,0.6);
+}
+#equal-sign{
+  background-color:lightskyblue;
+  
+  border: .5px solid dimgrey;
+}
+#equal-sign:hover{
+  background: dodgerblue;
+  
+}
+.operator{
+  background:burlywood;
+  border: .5px solid dimgrey;
+  height: 100% ;
+  
+  }
+#add{
+  grid-row: 1/2;
+  grid-column: 4/4;
+
+}
+#sub{
+  grid-row:2/3;
+  grid-column: 4/4;
+}
+#div{
+  grid-area: 4/4/5/4;
+}
+
+.back-trace{
+  grid-row: 4/4;
+  grid-column: 3/4;
+}
+#equal-sign{
+  grid-row: 5/6;
+  grid-column: 2/5;
+}
+.decimal{
+  grid-column:2/3;
+  grid-row:4/5;
+}
+.operator:hover{
+  background:peru;
+  
+}
+.all-clear{
+  background-color:rgba(141, 11, 11,0.4);
+  
+  border: .5px solid dimgrey;
+}
+.all-clear:hover{
+  background:firebrick;
+}
+.back-trace{
+  background: rgba(236, 156, 8, 0.5) ;
+  
+  border: .5px solid dimgrey;
+}
+

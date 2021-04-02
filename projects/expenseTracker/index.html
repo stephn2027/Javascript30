@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Expense Tracker</title>
+</head>
+
+<body>
+    <main>
+        <div class='container'>
+            <h1 class="title">Expense Tracker</h1>
+            <form class="form">
+                <div class="nameInput">
+                    <label for="expenseName">Name:</label>
+                    <input type="text" name="expenseName" id="expenseName" class="expenseForm" contenteditable="true"
+                        placeholder="What was the expense made?">
+
+                </div>
+                <div class="dateInput">
+                    <label for="date">Date:</label>
+                    <input type="datetime-local" name="date" class="dateForm" placeholder="">
+                </div>
+                <div class="amountInput">
+                    <label for="amount">Amount:</label>
+                    <input type="text" name="amount" class="amountForm" placeholder="Enter amount"
+                        contenteditable="true">
+                </div>
+
+
+                <button type="submit" class="submitForm">Submit</button>
+            </form>
+
+            <table class="table">
+
+                <caption>Expense Table</caption>
+                <thead id="head">
+                    <td>Name</td>
+                    <td>Amount</td>
+                    <td>Date</td>
+                    <td style="width: 10px;">Options</td>
+                </thead>
+                <tbody class="tableCont">
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </main>
+    <svg>
+        <defs>
+            <symbol id="delete-icon" viewBox="0 0 448 448">
+                <path
+                    d="m224 0c-123.710938 0-224 100.289062-224 224s100.289062 224 224 224 224-100.289062 224-224c-.132812-123.65625-100.34375-223.867188-224-224zm124.449219 325.824219c4.15625 4.015625 5.828125 9.964843 4.363281 15.558593s-5.835938 9.964844-11.429688 11.429688-11.542968-.207031-15.558593-4.363281l-101.824219-101.824219-101.824219 101.824219c-6.277343 6.0625-16.257812 5.976562-22.429687-.195313s-6.257813-16.152344-.195313-22.429687l101.824219-101.824219-101.824219-101.824219c-4.15625-4.015625-5.828125-9.964843-4.363281-15.558593s5.835938-9.964844 11.429688-11.429688 11.542968.207031 15.558593 4.363281l101.824219 101.824219 101.824219-101.824219c6.277343-6.0625 16.257812-5.976562 22.429687.195313s6.257813 16.152344.195313 22.429687l-101.824219 101.824219zm0 0"
+                    fill="#D80027" />
+            </symbol>
+        </defs>
+
+
+    </svg>
+
+
+    <script>
+
+        let expenseList = [];
+
+        const form = document.querySelector('.form');
+
+        function addList(name, date, amount) {
+
+            const list = {
+                name,
+                date,
+                amount,
+                id: Date.now()
+            };
+            console.log(list);
+            expenseList.push(list);
+
+            renderList(list);
+
+        };
+
+        function renderList(list) {
+            localStorage.setItem('expenseTrackerRef', JSON.stringify(expenseList));
+
+            const table = document.querySelector('.tableCont');
+            const item = document.querySelector(`[data-key='${list.id}']`)
+
+            if (list.deleted) {
+                item.remove();
+                return
+            };
+
+
+
+            const expenserow = table.insertRow('tr id="tr"');
+            expenserow.setAttribute('data-key', list.id);
+            expenserow.setAttribute('class', 'tr');
+
+
+            expenserow.innerHTML =
+                `<td>${list.name}</td>
+            <td>${list.date}</td>
+            <td>¥${list.amount}</td>
+            <button data-key='${list.id}'class="delete js-delete">
+                <svg><use href="#delete-icon"></use></svg>
+                </button>
+            `;
+            table.append(expenserow);
+        }
+
+        function deleteRow(key) {
+            const index = expenseList.findIndex(list => list.id === Number(key));
+
+            const list = {
+                deleted: true,
+                ...expenseList[index]
+            };
+            console.log(list);
+            console.log(index);
+            expenseList = expenseList.filter(item=>item.id !== Number(key));
+            renderList(list);
+        }
+
+        const tableRow = document.querySelector('.tableCont');
+
+        tableRow.addEventListener('click', event => {
+            // if(event.target.classList.contains('js-delete')){
+            //     const tbody = event.currentTarget;
+            //     const trow = tbody.querySelector('.tr');
+            //     const listKey =trow.dataset.key;
+            //     console.log(Number(listKey)); 
+            //     deleteRow(listKey);
+            //     console.log(listKey);
+            //     console.log(expenseList)
+            //     //same as listKey
+
+
+            // }
+            if (event.currentTarget.classList.contains('tableCont')) {
+                const key = event.target.parentElement.dataset.key;
+                deleteRow(key);
+                console.log(key)
+            }
+
+        });
+
+
+
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            const nameForm = document.querySelector('.expenseForm');
+            const name = nameForm.value.trim();
+            const dateForm = document.querySelector('.dateForm');
+            const date = dateForm.value.trim();
+            const amountForm = document.querySelector('.amountForm');
+            const amount = amountForm.value.trim();
+
+
+
+            if (name !== '' && amount !== '' && date !== "") {
+                addList(name, date, amount);
+                nameForm.value = '';
+                nameForm.focus();
+                amountForm.value = '';
+                amountForm.focus();
+                dateForm.value = '';
+                dateForm.focus();
+            } else {
+                alert('please fill all fields');
+                return;
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded',()=>{
+            const ref = localStorage.getItem('expenseTrackerRef');
+            if(ref){
+                expenseList = JSON.parse(ref);
+                expenseList.forEach(t=>renderList(t));
+            }
+            
+
+        });
+
+
+
+
+    </script>
+</body>
+
+</html>
