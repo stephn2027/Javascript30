@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Note Taker</title>
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <h2 class="title">Note Taker</h2>
+            <h3 class="add-text">Add A New Note</h3>
+            <form class="form">
+
+                <label for="inputField" id="text-field-label">Note:</label>
+                <textarea class="note-input" name="inputField" placeholder="Write your note here"
+                    contenteditable="true"></textarea>
+                <button type="button" class="submit submit-button">Add Note</button>
+            </form>
+            <div class="noteContainer">
+
+            </div>
+        </div>
+    </main>
+
+    <svg>
+        <defs>
+            <symbol id="delete-icon" viewBox="0 0 448 448">
+                <path
+                    d="m224 0c-123.710938 0-224 100.289062-224 224s100.289062 224 224 224 224-100.289062 224-224c-.132812-123.65625-100.34375-223.867188-224-224zm124.449219 325.824219c4.15625 4.015625 5.828125 9.964843 4.363281 15.558593s-5.835938 9.964844-11.429688 11.429688-11.542968-.207031-15.558593-4.363281l-101.824219-101.824219-101.824219 101.824219c-6.277343 6.0625-16.257812 5.976562-22.429687-.195313s-6.257813-16.152344-.195313-22.429687l101.824219-101.824219-101.824219-101.824219c-4.15625-4.015625-5.828125-9.964843-4.363281-15.558593s5.835938-9.964844 11.429688-11.429688 11.542968.207031 15.558593 4.363281l101.824219 101.824219 101.824219-101.824219c6.277343-6.0625 16.257812-5.976562 22.429687.195313s6.257813 16.152344.195313 22.429687l-101.824219 101.824219zm0 0"
+                    fill="#D80027" />
+            </symbol>
+        </defs>
+    </svg>
+    <script>
+        const textArea = document.querySelector('.note-input');
+        const submitButton = document.querySelector('.submit');
+        const noteContainer = document.querySelector('.noteContainer');
+
+        let notes = [];
+
+        function getInput() {
+            event.preventDefault();
+            const noteText = textArea.value.trim();
+
+            if (noteText !== '') {
+                const note = {
+                    noteText,
+                    id: Date.now()
+                };
+
+                notes.push(note);
+                renderNote(note);
+                textArea.value = "";
+                textArea.focus();
+            }
+
+        }
+        function renderNote(note) {
+            localStorage.setItem('noteTakerRef', JSON.stringify(notes));
+            const noteContainer = document.querySelector('.noteContainer');
+            const item = document.querySelector(`[data-key='${note.id}']`);
+
+
+            if (note.deleted) {
+                item.remove();
+                return
+            };
+
+            const newNote = document.createElement('div');
+            newNote.setAttribute('class', "addedNote");
+            newNote.setAttribute('data-key', note.id);
+
+            newNote.innerHTML = `
+
+                <span>${note.noteText}</span>
+                <br>
+                <button class="open-modal" data-open="${note.id}">View Note</button>
+                <button class="delete-note js-delete-note">
+                <svg><use href="#delete-icon"></use></svg>
+                </button>
+
+                <div class="modal" id="${note.id}" data-animation="slideInOutLeft">
+                    <div class="modal-dialog">
+                        <header class="modal-header">
+                                     ...
+                            <button class="close-modal" aria-label="close modal" data-close>✕</button>
+                        </header>
+                        <section class="modal-content">${note.noteText}</section>
+                        <footer class="modal-footer">...</footer>
+                    </div>
+                </div>
+                
+            `;
+
+            noteContainer.append(newNote);
+        }
+
+        function deleteNote(key) {
+            const index = notes.findIndex(note => note.id === Number(key));
+            const note = {
+                deleted: true,
+                ...notes[index]
+            };
+            
+            notes = notes.filter(note => note.id !== Number(key));
+            renderNote(note);
+        }
+
+        
+        submitButton.addEventListener('click', getInput);
+        noteContainer.addEventListener('click', ()=>{
+            
+            
+                
+            if(event.target.classList.contains('open-modal')){
+           
+            const openElements = document.querySelectorAll('[data-open]');
+            const isVisible = 'is-visible';
+            
+            openElements.forEach(element=>{
+                element.addEventListener('click',(event)=>{
+                    
+                    const modalID = event.target.dataset.open;
+                    
+                   document.getElementById(modalID).classList.add(isVisible);
+                   
+                   
+                });
+                
+                    });
+                   
+            }
+            
+            if(event.target.classList.contains('open-modal')){
+            const closeElements = document.querySelectorAll('[data-close]');
+            const isVisible = 'is-visible';
+            
+            closeElements.forEach(element=>{
+                element.addEventListener('click',()=>{
+                    this.event.target.parentElement.parentElement.parentElement.classList.remove(isVisible);
+                    // event.target.parentElement.parentElement.parentElement.classList.remove('is-visible');
+                    //this.childNodes[1].childNodes[9].classList.remove(isVisible);
+                    
+                        })
+                
+                });
+                return;
+
+           }
+           
+            return;
+        
+
+        });
+        
+        noteContainer.addEventListener('click',()=>{
+            
+        
+            if (event.target.children[3].classList.contains('js-delete-note')) {
+                
+                const key = event.target.dataset.key;
+                deleteNote(key);
+                return;
+                
+                
+            }
+            return;
+        });
+
+        //modal start
+        // const openElements = document.querySelectorAll('[data-open]');
+        // const isVisible = "is-visible";
+
+        //         openElements.forEach(element =>
+        //         element.addEventListener('click',()=>{
+        //         const modalID = this.dataset.open;
+                
+        //         document.getElementsById(modalID).classList.add(isVisible);
+        //             })
+        //         );
+        // modal end
+
+       
+
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const ref = localStorage.getItem('noteTakerRef');
+            if (ref) {
+                notes = JSON.parse(ref);
+                notes.forEach(element => { renderNote(element); });
+            }
+        });
+
+
+    </script>
+
+</body>
+
+</html>
