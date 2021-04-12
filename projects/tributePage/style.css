@@ -1,0 +1,90 @@
+html{
+    box-sizing: border-box;
+    font-size: 62.5%;
+    background-color:white;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+   font-family:
+   -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans,
+    Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+   line-height: 1.6;
+   width: 100%;
+  }
+  #main{
+     
+    display: flexbox;
+    position: relative;
+    background-color: #eee;
+    border-radius: .6rem;
+    justify-content: center;
+    width: 98vw;
+    max-height:max-content;
+    padding: 40px 40px 40px 40px;
+    margin:35px auto;
+    overflow: hidden;
+    align-items: center;
+
+  }
+  #image{
+      display: block;;
+   max-width:95%;
+   padding-top: 10px;
+   margin: auto;
+   position: relative;
+   text-align: center;
+  }
+  #img-div{
+      background-color: whitesmoke;
+      }
+h1{
+    text-align: center;
+    
+    font-size: 5rem;
+    margin-bottom: -2.5rem;
+}
+p{
+    text-align: center;
+    padding: auto;
+    margin: auto;
+    line-height: 1.7;
+    
+}
+#img-caption{
+ font-size: 1.5rem;
+ font-weight: 300;
+ padding:1rem 0 1rem 0;
+ margin-bottom: 1rem;
+ 
+}
+
+.title-p{
+position:relative;
+ padding-top: 10px;   
+ font-size: 2rem;
+ font-weight: 400;
+ margin-bottom: 2rem;
+}
+h3{
+    font-size: 2.5rem;
+}
+.tribute-info{
+    text-align: justify;
+}
+li{
+    margin-left: 3rem;
+    padding: 1rem 3rem 1rem 3rem;
+    text-align: justify;
+    align-self: baseline;
+    line-height: 1.8;
+
+}
+.link-wiki{
+    padding-top: 3rem;
+    font-size: 2rem;
+}
